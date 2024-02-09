@@ -1,49 +1,25 @@
-import { Feather } from '@expo/vector-icons';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Text, View, StyleSheet } from 'react-native';
 
-import Details from '../screens/details';
-import Overview from '../screens/overview';
+
+import { Login } from '../screens/login';
+
 
 export type RootStackParamList = {
-  Overview: undefined;
-  Details: { name: string };
+  Login: undefined;
 };
 
-const Stack = createStackNavigator<RootStackParamList>();
+const { Screen, Navigator } = createStackNavigator<RootStackParamList>();
 
-export default function RootStack() {
+export function RootStack() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Overview">
-        <Stack.Screen name="Overview" component={Overview} />
-        <Stack.Screen
-          name="Details"
-          component={Details}
-          options={({ navigation }) => ({
-            headerLeft: () => (
-              <View style={styles.backButton}>
-                <Feather name="chevron-left" size={16} color="#007AFF" />
-                <Text style={styles.backButtonText} onPress={navigation.goBack}>
-                  Back
-                </Text>
-              </View>
-            ),
-          })}
-        />
-      </Stack.Navigator>
+      <Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
+        <Screen name="Login" component={Login} />
+
+      </Navigator>
     </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  backButton: {
-    flexDirection: 'row',
-    paddingLeft: 20,
-  },
-  backButtonText: {
-    color: '#007AFF',
-    marginLeft: 4,
-  },
-});
